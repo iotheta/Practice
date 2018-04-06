@@ -9,35 +9,7 @@ process.stdin.on('end', () => {
 });
 
 function main(mealCost, tipPercent, taxPercent) {
-    process.stdin.resume();
-    process.stdin.setEncoding('ascii');
-
-    var input_stdin = "";
-    var input_stdin_array = "";
-    var input_currentline = 0;
-
-    process.stdin.on('data', function (data) {
-        input_stdin += data;
-    });
-
-    process.stdin.on('end', function () {
-        input_stdin_array = input_stdin.split("\n");
-        main();    
-    });
-
-    function readLine() {
-        return input_stdin_array[input_currentline++];
-    }
-
-    /////////////// ignore above this line ////////////////////
-
-    function main() {
-        var meal_cost = parseFloat(readLine());
-        var tip_percent = parseInt(readLine());
-        var tax_percent = parseInt(readLine());
-        var total_cost = meal_cost * (1 + (tip_percent + tax_percent)/100);
+        var totalCost = mealCost * (1 + (tipPercent + taxPercent)/100);
         
-        console.log("The total meal cost is " + total_cost + " dollars.");
-    }
-
+        console.log("The total meal cost is " + totalCost.toFixed(0) + " dollars.");
 }
