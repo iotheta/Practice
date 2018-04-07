@@ -14,12 +14,12 @@ const GRID = [
 // Determines the number of columns and rows in the GRID
 // returns an array with number of columns then number of rows
 function getGridDim() {
-  let gridHeight = GRID.length;
-  let gridWidth;
+  let y = GRID.length;
+  let x;
   
-  gridHeight === 0 ? gridWidth = 0 : gridWidth = GRID[0].length;
+  y === 0 ? x = 0 : x = GRID[0].length;
   
-  return [gridWidth, gridHeight];
+  return [x, y];
 }
 
 // Formats the dimensions of the GRID
@@ -42,15 +42,16 @@ function totalCells() {
 // and returns the content in a string or false if coordinates
 // are invalid.
 function lightCell(coordinates) {
-  let x = coordinates.slice(1) - 1;
-  let y = coordinates[0].toLowerCase().charCodeAt(0) - 97;
+  let y = coordinates.slice(1) - 1;
+  let x = coordinates[0].toLowerCase().charCodeAt(0) - 97;
   let coordLength = coordinates.length;
+  let gridDim = getGridDim();
   
-  if (coordLength < 2 || x < 0 || x > 9 || y < 0 || y > 9) {
+  if (coordLength < 2 || x < 0 || x > gridDim[0] || y < 0 || y > gridDim[1]) {
     return false;
   }
   else {
-    return GRID[x][y];
+    return GRID[y][x];
   }
 }
 
@@ -108,8 +109,8 @@ function allRocks() {
   let coordinate = "";
   let rocksArray = [];
 
-  for(let i = 1; i <= gridDim[0]; i++) {
-    for(let j = 1; j <= gridDim[1]; j++) {
+  for(let i = 1; i <= gridDim[1]; i++) {
+    for(let j = 1; j <= gridDim[0]; j++) {
       columnLetter = String.fromCharCode(j + 64);
       coordinate = columnLetter + i;
       isRock(coordinate) ? rocksArray.push(coordinate) : false;
