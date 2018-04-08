@@ -101,13 +101,6 @@ function isSafe(coordinates) {
   return !isRock(coordinates) && !isCurrent(coordinates);
 }
 
-// Reports all the rocks in the GRID.
-// Returns an array of the coordinates of all the rocks in the GRID
-function allRocks() {
-  let rocksCoords = findAll("Rocks");
-  return rocksCoords;
-}
-
 // Reports all the specified item in the GRID.
 // Returns an array of the coordinates of all the specific item in the GRID
 function findAll(thisItem) {
@@ -130,4 +123,18 @@ function findAll(thisItem) {
   return coordArray;
 }
 
-console.log(allRocks());
+// Reports all the rocks in the GRID.
+// Returns an array of the coordinates of all the rocks in the GRID
+function allRocks() {
+  let rocksCoords = findAll("Rocks");
+  return rocksCoords;
+}
+
+// Reports all the currents in the GRID.
+// Returns an array of the coordinates of all the currents in the GRID
+function allCurrents() {
+  let currentCoords= findAll("Currents");
+  return currentCoords;
+}
+
+console.log(allCurrents());
