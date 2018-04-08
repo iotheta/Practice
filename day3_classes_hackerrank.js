@@ -7,7 +7,25 @@ class Person {
          this.age = initialAge;
        } 
     }
+
+    amIOld() {
+      if (this.age < 13) {
+        console.log("You are young.");
+      } else if (this.age >= 13 && this.age < 18) {
+        console.log("You are a teenager.");
+      } else {
+        console.log("You are old.");
+      }
+    }
+
+    yearPasses() {
+      this.age++;
+      this.amIOld();
+    }
 }
 
-let mike = new Person(-1);
+let mike = new Person(12);
+
+mike.amIOld();
+mike.yearPasses();
 
