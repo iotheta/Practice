@@ -104,19 +104,30 @@ function isSafe(coordinates) {
 // Reports all the rocks in the GRID.
 // Returns an array of the coordinates of all the rocks in the GRID
 function allRocks() {
+  let rocksCoords = findAll("Rocks");
+  return rocksCoords;
+}
+
+// Reports all the specified item in the GRID.
+// Returns an array of the coordinates of all the specific item in the GRID
+function findAll(thisItem) {
   let gridDim = getGridDim();
   let columnLetter = "";  
   let coordinate = "";
-  let rocksArray = [];
+  let coordArray = [];
 
   for(let i = 1; i <= gridDim[1]; i++) {
     for(let j = 1; j <= gridDim[0]; j++) {
       columnLetter = String.fromCharCode(j + 64);
       coordinate = columnLetter + i;
-      isRock(coordinate) ? rocksArray.push(coordinate) : false;
+      if (thisItem === "Rocks") {
+        isRock(coordinate) ? coordArray.push(coordinate) : false;
+      } else if (thisItem === "Currents") {
+        isCurrent(coordinate) ? coordArray.push(coordinate) : false;
+      }
     }
   }
-  
-  return rocksArray;
+  return coordArray;
 }
+
 console.log(allRocks());
