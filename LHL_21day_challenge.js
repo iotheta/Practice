@@ -146,8 +146,14 @@ function allRocks() {
 // Reports all the currents in the GRID.
 // Returns an array of the coordinates of all the currents in the GRID
 function allCurrents() {
-  let currentCoords= find("All", "Currents");
+  let currentCoords = find("All", "Currents");
   return currentCoords;
+}
+
+// Returns the coordinates of the first rock in the GRID.
+function firstRock() {
+  let firstRock = find("First", "Rocks");
+  return firstRock;
 }
 
 console.log(allRocks());
