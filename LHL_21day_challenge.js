@@ -101,9 +101,10 @@ function isSafe(coordinates) {
   return !isRock(coordinates) && !isCurrent(coordinates);
 }
 
-// Reports all the specified item in the GRID.
-// Returns an array of the coordinates of all the specific item in the GRID
-function findAll(thisItem) {
+// Reports the first or all of the specified item in the GRID.
+// Returns the first or an array of the coordinates of all 
+// the specific item in the GRID.
+function find(instanceOf, thisItem) {
   let gridDim = getGridDim();
   let columnLetter = "";  
   let coordinate = "";
@@ -114,9 +115,21 @@ function findAll(thisItem) {
       columnLetter = String.fromCharCode(j + 64);
       coordinate = columnLetter + i;
       if (thisItem === "Rocks") {
-        isRock(coordinate) ? coordArray.push(coordinate) : false;
+        if (isRock(coordinate)) {
+          if (instanceOf === "All") {
+            coordArray.push(coordinate);
+          } else if (instanceOf === "First") {
+            return coordinate;
+          }
+        } 
       } else if (thisItem === "Currents") {
-        isCurrent(coordinate) ? coordArray.push(coordinate) : false;
+        if (isCurrent(coordinate)) {
+          if (instanceOf === "All") {
+            coordArray.push(coordinate);
+          } else if (instanceOf === "First") {
+             return coordinate;
+          }
+        } 
       }
     }
   }
@@ -126,15 +139,15 @@ function findAll(thisItem) {
 // Reports all the rocks in the GRID.
 // Returns an array of the coordinates of all the rocks in the GRID
 function allRocks() {
-  let rocksCoords = findAll("Rocks");
+  let rocksCoords = find("All", "Rocks");
   return rocksCoords;
 }
 
 // Reports all the currents in the GRID.
 // Returns an array of the coordinates of all the currents in the GRID
 function allCurrents() {
-  let currentCoords= findAll("Currents");
+  let currentCoords= find("All", "Currents");
   return currentCoords;
 }
 
-console.log(allCurrents());
+console.log(allRocks());
