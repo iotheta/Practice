@@ -22,19 +22,33 @@ function getGridDim() {
   return [x, y];
 }
 
-// Returns index of the GRID array that maps to the given coordinates
-function mapCoordIndex(coordinate) {
-  let y = coordinate.slice(1) - 1;
+// Returns index of the GRID array that maps to the given coordinates and to
+// adjacent coordinates (top, bottom, left, right) if adj === true.
+function mapCoordIndex(coordinate, findAdj) {
+  const coordLength = coordinate.length;
+  const gridDim = getGridDim();
+  const adjTransferArray = [[0, 1], [0, -1], [-1, 0], [1, 0]];
+
   let x = coordinate[0].toLowerCase().charCodeAt(0) - 97;
-  let coordLength = coordinate.length;
-  let gridDim = getGridDim();
-  
-  if (coordLength < 2 || x < 0 || x > gridDim[0] || y < 0 || y > gridDim[1]) {
-    return false;
+  let y = coordinate.slice(1) - 1;
+  let coordIndex = [x, y];
+  let coordsArray = [];
+
+  if (coordLength > 2 || x >= 0 || x < gridDim[0] || y >= 0 || y < gridDim[1]) {
+    coordsArray.push(coordIndex); 
+    if(findAdj) {
+      for(let i = 0; i < adjTransferArray.length; i++) {
+        x = coordIndex[0] + adjTransferArray[i][0];
+        y = coordIndex[1] + adjTransferArray[i][1];
+        if (coordLength < 2 || x < 0 || x > gridDim[0] || y < 0 || y > gridDim[1]) {
+          coordsArray.push(null);
+        } else {
+          coordsArray.push([x, y]);
+        }
+      }
+    }
   }
-  else {
-    return [x, y];
-  }
+  return coordsArray;
 }
 
 // Formats the dimensions of the GRID
@@ -178,11 +192,14 @@ function firstCurrent() {
 // or if the cells immediately above, below, left or right of it contains a rock
 // or strong current.
 function isDangerous(coordinate) {
-  // Determine top coordinate
-
-  // Determine bottom coordinate
-  // Determine left coordinate
-  // Determine right coordinate
+  // // Determine index of top coordinate
+  // let topCoord =  
+  // // Determine bottom coordinate
+  // let bottomCoord =
+  // // Determine left coordinate
+  // let leftCoord = 
+  // // Determine right coordinate
+  // let rightCoord = 
 }
 
-console.log(allRocks());
+console.log(mapCoordIndex('E9', true));
