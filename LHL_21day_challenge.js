@@ -11,6 +11,12 @@ const GRID = [
   ["", "^", "", "", "~", "~", "", "", "", ""],
 ];
 
+const TARGET_MAIN = 0;
+const TARGET_UP = 1;
+const TARGET_DOWN = 2;
+const TARGET_LEFT = 3;
+const TARGET_RIGHT = 4;
+
 // Determines the number of columns and rows in the GRID
 // returns an array with number of columns then number of rows
 function getGridDim() {
@@ -27,23 +33,23 @@ function getGridDim() {
 function mapCoordIndex(coordinate, findAdj) {
   const coordLength = coordinate.length;
   const gridDim = getGridDim();
-  const adjTransferArray = [[0, 1], [0, -1], [-1, 0], [1, 0]];
+  const adjTransferArray = [[0, -1], [0, 1], [-1, 0], [1, 0]];
 
   let x = coordinate[0].toLowerCase().charCodeAt(0) - 97;
   let y = coordinate.slice(1) - 1;
   let coordIndex = [x, y];
   let coordsArray = [];
 
-  if (coordLength > 2 && x >= 0 && x < gridDim[0] && y >= 0 && y < gridDim[1]) {
+  if (coordLength >= 2 && x >= 0 && x < gridDim[0] && y >= 0 && y < gridDim[1]) {
     coordsArray.push(coordIndex); 
     if(findAdj) {
       for(let i = 0; i < adjTransferArray.length; i++) {
         x = coordIndex[0] + adjTransferArray[i][0];
         y = coordIndex[1] + adjTransferArray[i][1];
-        if (coordLength < 2 && x >= 0 && x < gridDim[0] && y >= 0 && y < gridDim[1]) {
-          coordsArray.push(null);
-        } else {
+        if (coordLength >= 2 && x >= 0 && x < gridDim[0] && y >= 0 && y < gridDim[1]) {
           coordsArray.push([x, y]);
+        } else {
+          coordsArray.push(null);
         }
       }
     }
@@ -72,14 +78,38 @@ function totalCells() {
 // Reveals the contents of a cell based on given valid coordinate
 // and returns the content in a string or false if coordinate
 // are invalid.
-function lightCell(coordinate) {
-  coordIndex = mapCoordIndex(coordinate);
-  if (coordIndex) {
-    let j = coordIndex[0][0];
-    let i = coordIndex[0][1];
-    return GRID[i][j];
+function lightCell(coordinate, target) {
+  let j, i;
+  coordIndices = mapCoordIndex(coordinate, true);
+  if (coordIndices) {
+    switch(target) {
+      case TARGET_MAIN:
+        j = coordIndices[TARGET_MAIN] && coordIndices[TARGET_MAIN][0];
+        i = coordIndices[TARGET_MAIN] && coordIndices[TARGET_MAIN][1];
+        return coordIndices[TARGET_MAIN] && GRID[i][j];
+      case TARGET_UP:
+        j = coordIndices[TARGET_UP] && coordIndices[TARGET_UP][0];
+        i = coordIndices[TARGET_UP] && coordIndices[TARGET_UP][1];
+        return coordIndices[TARGET_UP] && GRID[i][j];
+      case TARGET_DOWN:
+        j = coordIndices[TARGET_DOWN] && coordIndices[TARGET_DOWN][0];
+        i = coordIndices[TARGET_DOWN] && coordIndices[TARGET_DOWN][1];
+        return coordIndices[TARGET_DOWN] && GRID[i][j];
+      case TARGET_LEFT:
+        j = coordIndices[TARGET_LEFT] && coordIndices[TARGET_LEFT][0];
+        i = coordIndices[TARGET_LEFT] && coordIndices[TARGET_LEFT][1];
+        return coordIndices[TARGET_LEFT] && GRID[i][j];
+      case TARGET_RIGHT:
+        j = coordIndices[TARGET_RIGHT] && coordIndices[TARGET_RIGHT][0];
+        i = coordIndices[TARGET_RIGHT] && coordIndices[TARGET_RIGHT][1];
+        return coordIndices[TARGET_RIGHT] && GRID[i][j];
+      default:
+        j = coordIndices[TARGET_MAIN] && coordIndices[TARGET_MAIN][0];
+        i = coordIndices[TARGET_MAIN] && coordIndices[TARGET_MAIN][1];
+        return coordIndices[TARGET_MAIN] && GRID[i][j];
+    } 
   } else {
-    return false;
+    return null;
   }
 }
 
@@ -119,7 +149,7 @@ function lightColumn(col) {
     return columnContent;
     
   } else {
-    return false;
+    return null;
   }
 }
 
@@ -194,6 +224,7 @@ function firstCurrent() {
 // or if the cells immediately above, below, left or right of it contains a rock
 // or strong current.
 function isDangerous(coordinate) {
+  
   // // Determine index of top coordinate
   // let topCoord =  
   // // Determine bottom coordinate
