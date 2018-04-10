@@ -38,13 +38,13 @@ function totalCells() {
   return gridDim[0] * gridDim[1];
 }
 
-// Reveals the contents of a cell based on given valid coordinates
-// and returns the content in a string or false if coordinates
+// Reveals the contents of a cell based on given valid coordinate
+// and returns the content in a string or false if coordinate
 // are invalid.
-function lightCell(coordinates) {
-  let y = coordinates.slice(1) - 1;
-  let x = coordinates[0].toLowerCase().charCodeAt(0) - 97;
-  let coordLength = coordinates.length;
+function lightCell(coordinate) {
+  let y = coordinate.slice(1) - 1;
+  let x = coordinate[0].toLowerCase().charCodeAt(0) - 97;
+  let coordLength = coordinate.length;
   let gridDim = getGridDim();
   
   if (coordLength < 2 || x < 0 || x > gridDim[0] || y < 0 || y > gridDim[1]) {
@@ -57,14 +57,14 @@ function lightCell(coordinates) {
 
 // Determines if the current cell is a rock
 // and returns true if it matches or false otherwise
-function isRock(coordinates) {
-  return lightCell(coordinates) === "^";
+function isRock(coordinate) {
+  return lightCell(coordinate) === "^";
 }
 
 // Determines if the current cell is a rock
 // and returns true if it matches or false otherwise
-function isCurrent(coordinates) {
-  return lightCell(coordinates) === "~";
+function isCurrent(coordinate) {
+  return lightCell(coordinate) === "~";
 }
 
 // Targets a given row in the GRID 
@@ -97,12 +97,12 @@ function lightColumn(col) {
 
 // Determines if a given coordinate is safe from rocks or strong current
 // returns true if it is safe and false otherwise.
-function isSafe(coordinates) {
-  return !isRock(coordinates) && !isCurrent(coordinates);
+function isSafe(coordinate) {
+  return !isRock(coordinate) && !isCurrent(coordinate);
 }
 
 // Reports the first or all of the specified item in the GRID.
-// Returns the first or an array of the coordinates of all 
+// Returns the first or an array of the coordinate of all 
 // the specific item in the GRID.
 function find(instanceOf, thisItem) {
   let gridDim = getGridDim();
@@ -137,26 +137,26 @@ function find(instanceOf, thisItem) {
 }
 
 // Reports all the rocks in the GRID.
-// Returns an array of the coordinates of all the rocks in the GRID
+// Returns an array of the coordinate of all the rocks in the GRID
 function allRocks() {
   let rocksCoords = find("All", "Rocks");
   return rocksCoords;
 }
 
 // Reports all the currents in the GRID.
-// Returns an array of the coordinates of all the currents in the GRID
+// Returns an array of the coordinate of all the currents in the GRID
 function allCurrents() {
   let currentCoords = find("All", "Currents");
   return currentCoords;
 }
 
-// Returns the coordinates of the first rock in the GRID.
+// Returns the coordinate of the first rock in the GRID.
 function firstRock() {
   let firstRock = find("First", "Rocks");
   return firstRock;
 }
 
-// Returns the coordinates of the first current in the GRID.
+// Returns the coordinate of the first current in the GRID.
 function firstCurrent() {
   let firstCurrent = find("First", "Currents");
   return firstCurrent;
