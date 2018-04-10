@@ -34,21 +34,23 @@ function mapCoordIndex(coordinate, findAdj) {
   let coordIndex = [x, y];
   let coordsArray = [];
 
-  if (coordLength > 2 || x >= 0 || x < gridDim[0] || y >= 0 || y < gridDim[1]) {
+  if (coordLength > 2 && x >= 0 && x < gridDim[0] && y >= 0 && y < gridDim[1]) {
     coordsArray.push(coordIndex); 
     if(findAdj) {
       for(let i = 0; i < adjTransferArray.length; i++) {
         x = coordIndex[0] + adjTransferArray[i][0];
         y = coordIndex[1] + adjTransferArray[i][1];
-        if (coordLength < 2 || x < 0 || x > gridDim[0] || y < 0 || y > gridDim[1]) {
+        if (coordLength < 2 && x >= 0 && x < gridDim[0] && y >= 0 && y < gridDim[1]) {
           coordsArray.push(null);
         } else {
           coordsArray.push([x, y]);
         }
       }
     }
+    return coordsArray;
+  } else {
+    return null;
   }
-  return coordsArray;
 }
 
 // Formats the dimensions of the GRID
@@ -73,8 +75,8 @@ function totalCells() {
 function lightCell(coordinate) {
   coordIndex = mapCoordIndex(coordinate);
   if (coordIndex) {
-    let j = coordIndex[0];
-    let i = coordIndex[1];
+    let j = coordIndex[0][0];
+    let i = coordIndex[0][1];
     return GRID[i][j];
   } else {
     return false;
@@ -201,4 +203,3 @@ function isDangerous(coordinate) {
   // // Determine right coordinate
   // let rightCoord = 
 }
-
