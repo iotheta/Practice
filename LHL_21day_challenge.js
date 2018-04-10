@@ -115,14 +115,14 @@ function lightCell(coordinate, target) {
 
 // Determines if the current cell is a rock
 // and returns true if it matches or false otherwise
-function isRock(coordinate) {
-  return lightCell(coordinate) === "^";
+function isRock(coordinate, target) {
+  return lightCell(coordinate, target) === "^";
 }
 
 // Determines if the current cell is a rock
 // and returns true if it matches or false otherwise
-function isCurrent(coordinate) {
-  return lightCell(coordinate) === "~";
+function isCurrent(coordinate, target) {
+  return lightCell(coordinate, target) === "~";
 }
 
 // Targets a given row in the GRID 
@@ -224,13 +224,10 @@ function firstCurrent() {
 // or if the cells immediately above, below, left or right of it contains a rock
 // or strong current.
 function isDangerous(coordinate) {
-  
-  // // Determine index of top coordinate
-  // let topCoord =  
-  // // Determine bottom coordinate
-  // let bottomCoord =
-  // // Determine left coordinate
-  // let leftCoord = 
-  // // Determine right coordinate
-  // let rightCoord = 
+  for(let i = 0; i <= 4; i++) {
+    if (isRock(coordinate, i) || isCurrent(coordinate, i)) {
+      return true;
+    }
+  }
+  return false;
 }
