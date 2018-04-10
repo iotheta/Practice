@@ -22,6 +22,21 @@ function getGridDim() {
   return [x, y];
 }
 
+// Returns index of the GRID array that maps to the given coordinates
+function mapCoordIndex(coordinate) {
+  let y = coordinate.slice(1) - 1;
+  let x = coordinate[0].toLowerCase().charCodeAt(0) - 97;
+  let coordLength = coordinate.length;
+  let gridDim = getGridDim();
+  
+  if (coordLength < 2 || x < 0 || x > gridDim[0] || y < 0 || y > gridDim[1]) {
+    return false;
+  }
+  else {
+    return [x, y];
+  }
+}
+
 // Formats the dimensions of the GRID
 // and returns a string in "Width(col) x Height(row)" format
 function gridSize() {
@@ -30,8 +45,8 @@ function gridSize() {
   return gridDim[0] + " x " + gridDim[1];
 }
 
-// Calculates the number of cells in the GRID
-// returns a number
+// Calculates the number of cells in the GRID.
+// Returns a number
 function totalCells() {
   let gridDim = getGridDim();
   
@@ -42,16 +57,13 @@ function totalCells() {
 // and returns the content in a string or false if coordinate
 // are invalid.
 function lightCell(coordinate) {
-  let y = coordinate.slice(1) - 1;
-  let x = coordinate[0].toLowerCase().charCodeAt(0) - 97;
-  let coordLength = coordinate.length;
-  let gridDim = getGridDim();
-  
-  if (coordLength < 2 || x < 0 || x > gridDim[0] || y < 0 || y > gridDim[1]) {
+  coordIndex = mapCoordIndex(coordinate);
+  if (coordIndex) {
+    let j = coordIndex[0];
+    let i = coordIndex[1];
+    return GRID[i][j];
+  } else {
     return false;
-  }
-  else {
-    return GRID[y][x];
   }
 }
 
@@ -160,6 +172,17 @@ function firstRock() {
 function firstCurrent() {
   let firstCurrent = find("First", "Currents");
   return firstCurrent;
+}
+
+// Returns true if the specified coordinate contains a rock or strong current 
+// or if the cells immediately above, below, left or right of it contains a rock
+// or strong current.
+function isDangerous(coordinate) {
+  // Determine top coordinate
+
+  // Determine bottom coordinate
+  // Determine left coordinate
+  // Determine right coordinate
 }
 
 console.log(allRocks());
