@@ -202,4 +202,3 @@ function isDangerous(coordinate) {
   // let rightCoord = 
 }
 
-console.log(mapCoordIndex('E9', true));
