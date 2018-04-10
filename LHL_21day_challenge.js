@@ -156,4 +156,10 @@ function firstRock() {
   return firstRock;
 }
 
+// Returns the coordinates of the first current in the GRID.
+function firstCurrent() {
+  let firstCurrent = find("First", "Currents");
+  return firstCurrent;
+}
+
 console.log(allRocks());
