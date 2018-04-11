@@ -23,7 +23,7 @@ function getGridDim() {
   let y = GRID.length;
   let x;
   
-  y === 0 ? x = 0 : x = GRID[0].length;
+  x = (y === 0 ? 0 : GRID[0].length);
   
   return [x, y];
 }
