@@ -162,7 +162,7 @@ function isSafe(coordinate) {
 // Reports the first or all of the specified item in the GRID.
 // Returns the first or an array of the coordinate of all 
 // the specific item in the GRID.
-function find(instanceOf, thisItem) {
+function find(thisItem) {
   let gridDim = getGridDim();
   let columnLetter = "";  
   let coordinate = "";
@@ -174,19 +174,11 @@ function find(instanceOf, thisItem) {
       coordinate = columnLetter + i;
       if (thisItem === "Rocks") {
         if (isRock(coordinate)) {
-          if (instanceOf === "All") {
-            coordArray.push(coordinate);
-          } else if (instanceOf === "First") {
-            return coordinate;
-          }
+          coordArray.push(coordinate);
         } 
       } else if (thisItem === "Currents") {
         if (isCurrent(coordinate)) {
-          if (instanceOf === "All") {
-            coordArray.push(coordinate);
-          } else if (instanceOf === "First") {
-             return coordinate;
-          }
+          coordArray.push(coordinate);
         } 
       }
     }
@@ -197,27 +189,25 @@ function find(instanceOf, thisItem) {
 // Reports all the rocks in the GRID.
 // Returns an array of the coordinate of all the rocks in the GRID
 function allRocks() {
-  let rocksCoords = find("All", "Rocks");
+  let rocksCoords = find('Rocks');
   return rocksCoords;
 }
 
 // Reports all the currents in the GRID.
 // Returns an array of the coordinate of all the currents in the GRID
 function allCurrents() {
-  let currentCoords = find("All", "Currents");
+  let currentCoords = find('Currents');
   return currentCoords;
 }
 
 // Returns the coordinate of the first rock in the GRID.
 function firstRock() {
-  let firstRock = find("First", "Rocks");
-  return firstRock;
+  return allRocks()[0];
 }
 
 // Returns the coordinate of the first current in the GRID.
 function firstCurrent() {
-  let firstCurrent = find("First", "Currents");
-  return firstCurrent;
+  return allCurrents()[0];
 }
 
 // Returns true if the specified coordinate contains a rock or strong current 
@@ -231,3 +221,8 @@ function isDangerous(coordinate) {
   }
   return false;
 }
+
+console.log(allCurrents());
+console.log(allRocks());
+console.log(firstCurrent());
+console.log(firstRock());
